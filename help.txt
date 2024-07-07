@@ -1,0 +1,7 @@
+nega aynan screens ichiga pryamoy emas papka orqali hosil iqldik, chunki asosiy component dan tashqari, sectional componentimiz ham mavjud boladi
+Components:
+    screens (Homepage, ProductsPage, OrderPage)
+    sectional folderlarda joriy etiladi (HomePage ichidagi Popular Dishes)
+    reusable (oddiy) componentlar (kichkina bitta rasm oddiy componentlar)
+
+
