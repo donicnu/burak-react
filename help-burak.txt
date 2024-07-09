@@ -1,0 +1,110 @@
+app.use("/", router); //Middleware Design Pattern
+
+
+architecture pattern: butun bir system suyagini qurib beradi
+
+MVC - Model View Controller =>
+    modellar - asosiy mantiqlarda yoziladi,
+    modellar 2 xil: Service model va Schima model
+    View - html ni backend da quradi, va tayyor html source controller ga taqdim qiladi
+    controller keyin rooter orqali browser ga jonatadi
+
+why sometimes usse default => when default used, bitta fileni yaxlit chaqirishda ishlatiladi
+    agar ishlatilmasa, bir nechta function larni {} ichida chaqirish mumkin
+
+Language lar 2 xil boladi:
+
+//Compiling => Java, C, C++, Golang              => COMPILE & RUN
+//Interpreter => NodeJS, Python, PHP, RUBY      => SUNIY COMPILE & RUN
+
+Typescript = Static + Dynamic
+
+Burak loyihasi uchun backend ga MVC Middleware + REDUX (Frontend)
+
+Why MONGOOSE:
+    1. Oson syntax
+    2. Schema ni validate qilib beradi, qanaqa typeligini suniy table orqali qiberadi
+    3. export qilish shart emas
+    4. chained query (ketma ket bilt in methodlarni yozsak boladi)
+
+
+validation 4 xil:
+    1. frontend validation
+    2. server validation
+    3. backend validation
+    4. schema (database) validation (notogri malumotni database ga yozmaslik un)
+
+//June 9 uchun nimalar qildik:
+    member service model vazifasini  tahlil qildik
+    mongoose documentation about schema va other static methods organdik
+    member schema modelini hosil qildik (because member service model uchun ishlatamiz in the future)
+
+Database order: 
+    cluster, 
+    database, 
+    collection, 
+    document, 
+    dataset
+
+//Schema Obj => orqali schema model yaratiladi
+
+Member.service.ts member.controller va restaurant.controller ga birdek hizmat qiladi
+    
+controller bn ishlayotganda har doim try catch ishlatamiz, so that qayerda
+    xato bolsa srazu bilvolsek boladi
+
+
+Questions for June 12 class:
+    1. Errors.ts da default export ni va default emas exportni aynan qachon ishlatamiz
+    2. member.service.ts da aynan async await yozishdan maqsad, async bolsa nima boladi, async nima degani?
+
+Post request biror harakatlarni amalga oshirishda(mutation = ozgartirish) ishlatamiz, get korish(read) uchun 
+
+response turlari:
+    send | json | redirect | end | render
+
+API - Application Programming Interface
+
+
+code oqiyotganimizda har doim ongdan chapga qarab oqiymiz
+
+class ozida yashaydigan methodlar static method hisoblanadi
+
+json format daligini object keylarini "" ichiga yozish orqali otkazamiz
+
+
+VPS - virtual private server
+vpc - virtual private cloud
+
+Networking architecture:
+    1. Client server
+    2. peer to peer
+
+Authentication: 
+    Sessions(cookies) => Burak (EJS)
+    Tokens(cookies)     => Burak (React)
+    Tokens (Headers)
+
+
+browser xotirasi: 
+    1.local storage json data
+    2.session storage json data
+    3.cookies 
+    4.cache lyuboy data
+
+cookies hislatlari:
+    1. har bitta request ga join qilvoladi
+    2. malum bir vaqtdan kn ozini yoqotvoradi(destroy)
+
+Validation turlari:
+    1. FrontEnd validation
+    2. Backend validation
+    3. Database validation
+
+/ (1) database ga malumotlarni joylash & Cookie SiD hosil qilish (2) Cookie SID => MEMBER
+
+
+Rasmni serverlarda saqlaymiz, rasm yoki boshqa file manzili(linki) serverda saqlanadi
+
+library- malum bir amallarni amalga oshiradigan kutubxona
+framework - butun bir ishimizni tashkillashtiradigan kengroq tizim

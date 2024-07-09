@@ -1,7 +1,44 @@
 nega aynan screens ichiga pryamoy emas papka orqali hosil iqldik, chunki asosiy component dan tashqari, sectional componentimiz ham mavjud boladi
+
 Components:
     screens (Homepage, ProductsPage, OrderPage)
     sectional folderlarda joriy etiladi (HomePage ichidagi Popular Dishes)
-    reusable (oddiy) componentlar (kichkina bitta rasm oddiy componentlar)
+    common reusable (oddiy) componentlar (kichkina bitta rasm oddiy componentlar)
 
 
+
+css in js:
+    1.dynamic style (ranglar dynamic ozgarishi); 
+    2. scoope ga olib ketilishi {{}}; 
+    3. components based (aynan bitta componentga stil berish tushuniladi)
+
+emotion: 
+    1. library (comfortable)
+    1. css props support 
+    2. server side rendering with zero configuration
+    3. theming works out of the box
+
+layout - korinishi yoq maydon, lekin logic yasash uchun yordam beradi
+
+
+REACT:
+    declarative (lyuboy joyda yasab ketsa boladi, phone mobile or smth else)
+    component based (butun project components lardan tashkil topgan)
+    refresh qilishimiz shart emas
+
+SPA ni qura oladigan meta frameworklar
+    ViewJS
+    ANgular
+    React (NextJS orqali qursak boladi)
+
+Library va Framework farqi
+    Library loyihani malum bir qismini qurishga qurib beradi
+    Framework bolsa butun bir loyihani complex qurishga quradi
+
+BackEnd da library ishlatilmaydi, faqat frameworklar, masalan Express va NestJS
+
+CSS frameworklar: Bootstrap, MaterialUI, Talewind
+
+RealDOM and Virtual DOM farqi reconciliation, kopiyasini qurvoladi, va backend kelgan data asosisda quriladi
+RealDOM dom elementi, VirtualDOM is virtual representation of RealDOM
+VirtualDOM benefits: fast(100k NOD tezlik)

@@ -1,53 +1,41 @@
-import React from 'react';
-import '../css/app.css';
-import { Box, Button, Container, Stack, Typography } from '@mui/material';
-import { Link, Route, Switch } from 'react-router-dom';
-import { About } from './screens/About';
-import { ProductsPage } from './screens/productsPage';
-import { OrdersPage } from './screens/ordersPage';
-import { UserPage } from './screens/userPage';
-import { HomePage } from './screens/homePage';
+import React from "react";
+import "../css/app.css";
+import { Box, Button, Container, Stack, Typography } from "@mui/material";
+import { Link, Route, Switch, useLocation } from "react-router-dom";
+
+import { About } from "./screens/About";
+import { ProductsPage } from "./screens/productsPage";
+import { OrdersPage } from "./screens/ordersPage";
+import { UserPage } from "./screens/userPage";
+import { HomePage } from "./screens/homePage";
+import { OtherNavbar } from "./components/headers/OtherNavbar";
+import { HomeNavbar } from "./components/headers/HomeNavbar";
+import { Footer } from "./components/footer";
 
 function App() {
- return (
-  <div>
-        <nav>
-          <ul>
-          <li>
-              <Link to="/">HomePage</Link>
-            </li>
-            <li>
-              <Link to="/products">ProductsPage</Link>
-            </li>
-            <li>
-              <Link to="/orders">OrdersPage</Link>
-            </li>
-            <li>
-              <Link to="/member-page">UserPage</Link>
-            </li>
-            
-          </ul>
-        </nav>
+  const location = useLocation();
+  console.log("location:", location); //hozir qaysi pagedaligimizni bilish uchun
 
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-        <Switch>
-          <Route path="/products">
-            <ProductsPage />
-          </Route>
-          <Route path="/orders">
-            <OrdersPage />
-          </Route>
-          <Route path="/member-pahe">
-            <UserPage />
-          </Route>
-          <Route path="/">
-            <HomePage />
-          </Route>
-        </Switch>
-      </div>
- )
+  return (
+    <>
+      {location.pathname === "/" ? <HomeNavbar /> : <OtherNavbar />}
+      <Switch>
+        <Route path="/products">
+          <ProductsPage />
+        </Route>
+        <Route path="/orders">
+          <OrdersPage />
+        </Route>
+        <Route path="/member-page">
+          <UserPage />
+        </Route>
+        <Route path="/">
+          <HomePage />
+        </Route>
+      </Switch>
+      <Footer />
+    </>
+  );
 }
-
 
 export default App;
