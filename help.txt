@@ -42,3 +42,8 @@ CSS frameworklar: Bootstrap, MaterialUI, Talewind
 RealDOM and Virtual DOM farqi reconciliation, kopiyasini qurvoladi, va backend kelgan data asosisda quriladi
 RealDOM dom elementi, VirtualDOM is virtual representation of RealDOM
 VirtualDOM benefits: fast(100k NOD tezlik)
+
+
+      //css style uchun snack case, variable uchun camel case
+
+NavLink => biz turgan manzilni tekshirib beradi
