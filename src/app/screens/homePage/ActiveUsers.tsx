@@ -20,7 +20,26 @@ export default function ActiveUsers() {
         <Stack className={"main"}>
           <Box className={"category-title"}>Active Users</Box>
           <Stack className={"cards-frame"}>
-            <CssVarsProvider>{activeUsers.length !== 0}</CssVarsProvider>
+            <CssVarsProvider>
+              {activeUsers.length !== 0 ? (
+                activeUsers.map((ele, index) => {
+                  return (
+                    <Card key={index} variant="outlined" className={"card"}>
+                      <CardOverflow>
+                        <AspectRatio ratio={"1"}>
+                          <img src={ele.memberImage} alt="" />
+                        </AspectRatio>
+                        <Typography className="member-nickname">
+                          {ele.memberNick}
+                        </Typography>
+                      </CardOverflow>
+                    </Card>
+                  );
+                })
+              ) : (
+                <Box className="no-data">No Active Users!</Box>
+              )}
+            </CssVarsProvider>
           </Stack>
         </Stack>
       </Container>
