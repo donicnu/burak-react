@@ -16,7 +16,7 @@ import "../css/navbar.css";
 import "../css/footer.css";
 
 function App() {
-  const location = useLocation();
+  const location = useLocation(); //useLocation => hook (use bolsa hook boladi)
   console.log("location:", location); //hozir qaysi pagedaligimizni bilish uchun
 
   return (
