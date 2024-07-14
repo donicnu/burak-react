@@ -13,6 +13,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 const container = document.getElementById("root")!;
 const root = createRoot(container);
 
+//MUI, Redux, Router, GraphQL Apollo, SocketIO, WebSocket, Context, Reactive Variables,
 root.render(
   <React.StrictMode>
     <Provider store={store}>

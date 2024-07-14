@@ -47,3 +47,10 @@ VirtualDOM benefits: fast(100k NOD tezlik)
       //css style uchun snack case, variable uchun camel case
 
 NavLink => biz turgan manzilni tekshirib beradi
+
+layout 3xil: ozini korinishi yoq, suyakni qurib beradi
+    Container
+    Stack
+    box 
+
+route ichida yana bitta route hosil qilishimiz nested routing tizim deyiladi
