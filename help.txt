@@ -57,3 +57,17 @@ route ichida yana bitta route hosil qilishimiz nested routing tizim deyiladi
 
 React hooks orqali function componentlarida sun'iy state hosil qila olamiz
 
+architectural patterns:
+    MVC
+    FLUX
+    REDUX (2xil oqim: dispatch va subscribe), reducers lar muxim
+
+    REdux qismlari:
+        View / UI
+        action
+        reducers (they are the main logic, controlling the whole thing)
+        store
+
+    Redux single store orqali kop imkoniyatlar beradi
+
+
