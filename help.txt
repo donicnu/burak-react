@@ -54,3 +54,6 @@ layout 3xil: ozini korinishi yoq, suyakni qurib beradi
     box 
 
 route ichida yana bitta route hosil qilishimiz nested routing tizim deyiladi
+
+React hooks orqali function componentlarida sun'iy state hosil qila olamiz
+
