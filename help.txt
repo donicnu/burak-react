@@ -49,7 +49,7 @@ VirtualDOM benefits: fast(100k NOD tezlik)
 NavLink => biz turgan manzilni tekshirib beradi
 
 layout 3xil: ozini korinishi yoq, suyakni qurib beradi
-    Container
+    Container  
     Stack
     box 
 
@@ -60,9 +60,9 @@ React hooks orqali function componentlarida sun'iy state hosil qila olamiz
 architectural patterns:
     MVC
     FLUX
-    REDUX (2xil oqim: dispatch va subscribe), reducers lar muxim
+    REDUX (2xil oqim: dispatch va subscribe {slice va selector}), reducers lar muxim
 
-    REdux qismlari:
+    Redux qismlari:
         View / UI
         action
         reducers (they are the main logic, controlling the whole thing)

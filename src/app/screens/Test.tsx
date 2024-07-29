@@ -22,10 +22,12 @@ class Test extends Component {
 
   componentWillUnmount() {
     console.log("componentWillUnmount");
-    //runs before component
+    //runs before component unmount => test component destroy bolishidan oldin ishga tushadi
   }
 
-  componentDidUpdate() {}
+  componentDidUpdate() {
+    console.log("++componentDidUpdate"); //qachonki test change bolsa, ichida nimadur bolsa
+  }
   render() {
     return (
       <div>
