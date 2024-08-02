@@ -13,7 +13,6 @@ import { useSelector } from "react-redux";
 import { createSelector } from "reselect";
 import { retrievePopularDishes } from "./selector";
 import { Product } from "../../../lib/types/product";
-import { ProductCollection } from "../../../lib/enums/product.enum";
 import { serverApi } from "../../../lib/config";
 
 /** REDUX SLICE & SELECTOR */
@@ -25,8 +24,6 @@ const popularDishesRetriever = createSelector(
 export default function PopularDishes() {
   const { popularDishes } = useSelector(popularDishesRetriever);
 
-  console.log("popularDishes:", popularDishes);
-
   return (
     <div className="popular-dishes-frame">
       <Container>
@@ -34,10 +31,10 @@ export default function PopularDishes() {
           <Box className="category-title">Popular Dishes</Box>
           <Stack className="cards-frame">
             {popularDishes.length !== 0 ? (
-              popularDishes.map((ele: Product) => {
-                const imagePath = `${serverApi}/${ele.productImages[0]}`;
+              popularDishes.map((product: Product) => {
+                const imagePath = `${serverApi}/${product.productImages[0]}`;
                 return (
-                  <CssVarsProvider key={ele._id}>
+                  <CssVarsProvider key={product._id}>
                     <Card className={"card"}>
                       <CardCover>
                         <img src={imagePath} alt="" />
@@ -54,7 +51,7 @@ export default function PopularDishes() {
                             textColor={"#fff"}
                             mb={1}
                           >
-                            {ele.productName}
+                            {product.productName}
                           </Typography>
                           <Typography
                             sx={{
@@ -64,7 +61,7 @@ export default function PopularDishes() {
                               display: "flex",
                             }}
                           >
-                            {ele.productViews}
+                            {product.productViews}
                             <VisibilityIcon
                               sx={{ fontSize: 25, marginLeft: "25px" }}
                             />
@@ -85,7 +82,7 @@ export default function PopularDishes() {
                           startDecorator={<DescriptionOutlinedIcon />}
                           textColor={"neutral.300"}
                         >
-                          {ele.productDesc}
+                          {product.productDesc}
                         </Typography>
                       </CardOverflow>
                     </Card>
