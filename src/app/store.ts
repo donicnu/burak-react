@@ -6,6 +6,7 @@ import {
 } from "@reduxjs/toolkit";
 import HomePageReducer from "./screens/homePage/slice";
 import reduxLogger from "redux-logger";
+import ProductsPageReducer from "./screens/productsPage/slice";
 //reduxlogger redux ichida qaysi malumotlar ozgaryotganini bizga aniq qilib beradi
 
 export const store = configureStore({
@@ -14,6 +15,7 @@ export const store = configureStore({
     getDefaultMiddleware().concat(reduxLogger),
   reducer: {
     homePage: HomePageReducer,
+    productsPage: ProductsPageReducer,
   },
 });
 
