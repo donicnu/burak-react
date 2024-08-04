@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { Box, Button, Container, Stack } from "@mui/material";
 
 import SearchIcon from "@mui/icons-material/Search";
@@ -14,7 +14,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Dispatch } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import { setProducts } from "./slice";
-import { Product } from "../../../lib/types/product";
+import { Product, ProductInquiry } from "../../../lib/types/product";
 
 import { useSelector } from "react-redux";
 import { createSelector } from "reselect";
@@ -22,6 +22,7 @@ import { retrieveProducts } from "./selector";
 import ProductService from "../../services/ProductService";
 import { ProductCollection } from "../../../lib/enums/product.enum";
 import { serverApi } from "../../../lib/config";
+import { useHistory } from "react-router-dom";
 
 /** REDUX SLICE & SELECTOR */
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -35,20 +36,58 @@ const productsRetriever = createSelector(retrieveProducts, (products) => ({
 export default function Products() {
   const { setProducts } = actionDispatch(useDispatch());
   const { products } = useSelector(productsRetriever);
+  const [productSearch, setProductSearch] = useState<ProductInquiry>({
+    page: 1,
+    limit: 8,
+    order: "createdAt",
+    productCollection: ProductCollection.DISH,
+    search: "",
+  });
 
+  const [searchText, setSearchText] = useState<string>("");
+  const history = useHistory();
   useEffect(() => {
     const product = new ProductService();
     product
-      .getProducts({
-        page: 1,
-        limit: 8,
-        order: "createdAt",
-        productCollection: ProductCollection.DISH,
-        search: "",
-      })
+      .getProducts(productSearch)
       .then((data) => setProducts(data))
       .catch((err) => console.log(err));
-  }, []);
+  }, [productSearch]);
+
+  useEffect(() => {
+    if (searchText === "") {
+      productSearch.search = "";
+      setProductSearch({ ...productSearch });
+    }
+  }, [searchText]);
+
+  /** HANDLERS */
+
+  const searchCollectionHandler = (collection: ProductCollection) => {
+    productSearch.page = 1;
+    productSearch.productCollection = collection;
+    setProductSearch({ ...productSearch });
+  };
+
+  const searchOrderHandler = (order: string) => {
+    productSearch.page = 1;
+    productSearch.order = order;
+    setProductSearch({ ...productSearch });
+  };
+
+  const searchProductHandler = () => {
+    productSearch.search = searchText;
+    setProductSearch({ ...productSearch });
+  };
+
+  const paginationHandler = (e: ChangeEvent<any>, value: number) => {
+    productSearch.page = value;
+    setProductSearch({ ...productSearch });
+  };
+  const chooseDishHandler = (id: string) => {
+    history.push(`/products/${id}`);
+  };
+
   return (
     <div className={"products"}>
       <Container>
@@ -60,38 +99,111 @@ export default function Products() {
           </Stack>
           <Stack flexDirection={"row"} justifyContent={"flex-end"}>
             <Box className="search-field">
-              <input className="input" placeholder="Type here" />
-              <Button color={"primary"} className="btn" variant="contained">
+              <input
+                className={"input"}
+                placeholder={"Type here"}
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") searchProductHandler();
+                }}
+              />
+              <Button
+                color={"primary"}
+                className="btn"
+                variant="contained"
+                onClick={searchProductHandler}
+              >
                 Search <SearchIcon className="search-icon" />
               </Button>
             </Box>
           </Stack>
           <Stack className={"dishes-filter-section"}>
-            <Button variant="contained" color={"primary"}>
+            <Button
+              variant="contained"
+              color={
+                productSearch.order === "createdAt" ? "primary" : "secondary"
+              }
+              onClick={() => searchOrderHandler("createdAt")}
+            >
               New
             </Button>
-            <Button variant="contained" color={"secondary"}>
+            <Button
+              variant="contained"
+              color={
+                productSearch.order === "productPrice" ? "primary" : "secondary"
+              }
+              onClick={() => searchOrderHandler("productPrice")}
+            >
               Price
             </Button>
-            <Button variant="contained" color={"secondary"}>
+            <Button
+              variant="contained"
+              color={
+                productSearch.order === "productViews" ? "primary" : "secondary"
+              }
+              onClick={() => searchOrderHandler("productViews")}
+            >
               Views
             </Button>
           </Stack>
           <Stack className={"list-category-section"}>
             <Stack className="product-category">
-              <Button color={"primary"} variant="contained">
+              <Button
+                color={
+                  productSearch.productCollection === ProductCollection.DISH
+                    ? "primary"
+                    : "secondary"
+                }
+                variant="contained"
+                onClick={() => searchCollectionHandler(ProductCollection.DISH)}
+              >
                 Dish
               </Button>
-              <Button color={"secondary"} variant="contained">
+              <Button
+                color={
+                  productSearch.productCollection === ProductCollection.SALAD
+                    ? "primary"
+                    : "secondary"
+                }
+                variant="contained"
+                onClick={() => searchCollectionHandler(ProductCollection.SALAD)}
+              >
                 Salad
               </Button>
-              <Button color={"secondary"} variant="contained">
+              <Button
+                color={
+                  productSearch.productCollection === ProductCollection.DRINK
+                    ? "primary"
+                    : "secondary"
+                }
+                variant="contained"
+                onClick={() => searchCollectionHandler(ProductCollection.DRINK)}
+              >
                 Drink
               </Button>
-              <Button color={"secondary"} variant="contained">
+              <Button
+                color={
+                  productSearch.productCollection === ProductCollection.DESSERT
+                    ? "primary"
+                    : "secondary"
+                }
+                variant="contained"
+                onClick={() =>
+                  searchCollectionHandler(ProductCollection.DESSERT)
+                }
+              >
                 Desert
               </Button>
-              <Button color={"secondary"} variant="contained">
+              <Button
+                color={
+                  productSearch.productCollection === ProductCollection.OTHER
+                    ? "primary"
+                    : "secondary"
+                }
+                variant="contained"
+                onClick={() => searchCollectionHandler(ProductCollection.OTHER)}
+              >
                 Others
               </Button>
             </Stack>
@@ -107,6 +219,7 @@ export default function Products() {
                     <Stack key={product._id}>
                       <Stack
                         className="product-img"
+                        onClick={() => chooseDishHandler(product._id)}
                         sx={{
                           backgroundImage: `url(${imagePath})`,
                         }}
@@ -155,7 +268,16 @@ export default function Products() {
           </Stack>
           <Stack className={"pagination-section"}>
             <Stack spacing={2}>
-              <Pagination count={3} color="secondary" />
+              <Pagination
+                count={
+                  products.length !== 0
+                    ? productSearch.page + 1
+                    : productSearch.page
+                }
+                page={productSearch.page}
+                color="secondary"
+                onChange={paginationHandler}
+              />
             </Stack>
           </Stack>
         </Stack>
