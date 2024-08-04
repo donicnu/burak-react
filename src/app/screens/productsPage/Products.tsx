@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Button, Container, Stack } from "@mui/material";
 
 import SearchIcon from "@mui/icons-material/Search";
@@ -19,6 +19,9 @@ import { Product } from "../../../lib/types/product";
 import { useSelector } from "react-redux";
 import { createSelector } from "reselect";
 import { retrieveProducts } from "./selector";
+import ProductService from "../../services/ProductService";
+import { ProductCollection } from "../../../lib/enums/product.enum";
+import { serverApi } from "../../../lib/config";
 
 /** REDUX SLICE & SELECTOR */
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -29,18 +32,23 @@ const productsRetriever = createSelector(retrieveProducts, (products) => ({
   products,
 }));
 
-const products = [
-  { productName: "Kebab", imagePath: "/img/kebab.webp" },
-  { productName: "Kebab", imagePath: "/img/kebab.webp" },
-  { productName: "Kebab", imagePath: "/img/kebab.webp" },
-  { productName: "Kebab", imagePath: "/img/kebab.webp" },
-  { productName: "Kebab", imagePath: "/img/kebab.webp" },
-  { productName: "Kebab", imagePath: "/img/kebab.webp" },
-  { productName: "Kebab", imagePath: "/img/kebab.webp" },
-  { productName: "Kebab", imagePath: "/img/kebab.webp" },
-];
-
 export default function Products() {
+  const { setProducts } = actionDispatch(useDispatch());
+  const { products } = useSelector(productsRetriever);
+
+  useEffect(() => {
+    const product = new ProductService();
+    product
+      .getProducts({
+        page: 1,
+        limit: 8,
+        order: "createdAt",
+        productCollection: ProductCollection.DISH,
+        search: "",
+      })
+      .then((data) => setProducts(data))
+      .catch((err) => console.log(err));
+  }, []);
   return (
     <div className={"products"}>
       <Container>
@@ -89,26 +97,22 @@ export default function Products() {
             </Stack>
             <Stack className="product-wrapper">
               {products.length !== 0 ? (
-                products.map((ele, index) => {
+                products.map((product: Product) => {
+                  const imagePath = `${serverApi}/${product.productImages[0]}`;
+                  const sizeVolume =
+                    product.productCollection === ProductCollection.DRINK
+                      ? product.productVolume + "litre"
+                      : product.productSize + "size";
                   return (
-                    <Stack key={index}>
+                    <Stack key={product._id}>
                       <Stack
                         className="product-img"
                         sx={{
-                          backgroundImage: `url(${ele.imagePath})`,
+                          backgroundImage: `url(${imagePath})`,
                         }}
                       >
                         <Box className="product-size">
-                          <Typography>
-                            <span
-                              style={{
-                                textTransform: "uppercase",
-                              }}
-                            >
-                              Large
-                            </span>{" "}
-                            size
-                          </Typography>
+                          <Typography>{sizeVolume}</Typography>
                         </Box>
                         <Stack className="product-busket">
                           <Button className="busket">
@@ -116,13 +120,16 @@ export default function Products() {
                           </Button>
                           <Button className="view">
                             <Badge
-                              badgeContent={3}
+                              badgeContent={product.productViews}
                               color={"secondary"}
                               className="badge"
                             >
                               <RemoveRedEyeIcon
                                 sx={{
-                                  color: "white",
+                                  color:
+                                    product.productViews === 0
+                                      ? "gray"
+                                      : "white",
                                 }}
                               />
                             </Badge>
@@ -130,10 +137,12 @@ export default function Products() {
                         </Stack>
                       </Stack>
                       <Stack className="product-info">
-                        <Box className="product-name">Cutlet</Box>
+                        <Box className="product-name">
+                          {product.productName}
+                        </Box>
                         <Box className="product-price">
                           <MonetizationOnIcon />
-                          10
+                          {product.productPrice}
                         </Box>
                       </Stack>
                     </Stack>
