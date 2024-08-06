@@ -14,43 +14,30 @@ import HelpPage from "./screens/helpPage";
 import "../css/app.css";
 import "../css/navbar.css";
 import "../css/footer.css";
-import { CartItem } from "../lib/types/search";
+import useBasket from "./hooks/useBasket";
 
 function App() {
   const location = useLocation(); //useLocation => hook (use bolsa hook boladi)
-  console.log("location:", location); //hozir qaysi pagedaligimizni bilish uchun
 
-  const cartJson: string | null = localStorage.getItem("cartData");
-  const currentCart = cartJson ? JSON.parse(cartJson) : [];
-  const [cartItems, setCartItems] = useState<CartItem[]>(currentCart);
-
-  /** HANDLERS */
-
-  const onAdd = (input: CartItem) => {
-    //onAdd basketga mahsulotlarni qoshish logic
-    const exist: any = cartItems.find(
-      (item: CartItem) => item._id === input._id
-    );
-    if (exist) {
-      const cartUpdate = cartItems.map((item: CartItem) =>
-        item._id === input._id
-          ? { ...exist, quantity: exist.quantity + 1 }
-          : item
-      );
-      setCartItems(cartUpdate);
-      localStorage.setItem("cartData", JSON.stringify(cartUpdate));
-    } else {
-      const cartUpdate = [...cartItems, { ...input }];
-      setCartItems(cartUpdate);
-      localStorage.setItem("cartData", JSON.stringify(cartUpdate));
-    }
-  };
+  const { cartItems, onAdd, onRemove, onDelete, onDeleteAll } = useBasket();
   return (
     <>
       {location.pathname === "/" ? (
-        <HomeNavbar cartItems={cartItems} />
+        <HomeNavbar
+          cartItems={cartItems}
+          onAdd={onAdd}
+          onRemove={onRemove}
+          onDelete={onDelete}
+          onDeleteAll={onDeleteAll}
+        />
       ) : (
-        <OtherNavbar cartItems={cartItems} />
+        <OtherNavbar
+          cartItems={cartItems}
+          onAdd={onAdd}
+          onRemove={onRemove}
+          onDelete={onDelete}
+          onDeleteAll={onDeleteAll}
+        />
       )}
       <Switch>
         <Route path="/products">
