@@ -157,7 +157,7 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
                 onChange={handlePhone}
               />
               <TextField
-                id="outlined-basic"
+                id="outlined-basicc"
                 label="password"
                 variant="outlined"
                 onChange={handlePassword}
