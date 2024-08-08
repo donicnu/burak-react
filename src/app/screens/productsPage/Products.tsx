@@ -107,6 +107,7 @@ export default function Products(props: ProductsProps) {
             <Box className="search-field">
               <input
                 className={"input"}
+                type="search"
                 placeholder={"Type here"}
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
